@@ -7,8 +7,10 @@ logging.basicConfig(level=logging.DEBUG,
 
 class __ProjectConfig:
     def __init__(self):
-        self.path_home = "D:"
-        self.path_dataset_home = "D:/dataset/defects4j"
+        # 使用相对路径，基于项目根目录
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.path_home = current_dir
+        self.path_dataset_home = os.path.join(current_dir, "data")
         
         self.path_defects4j = "/root/autodl-tmp/defects4j"
 
