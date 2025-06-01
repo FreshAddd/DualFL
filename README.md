@@ -8,12 +8,17 @@ This project is the source code for the paper "DualFL: A Method-Statement Collab
   - `dual_train_run.py` - Main entry file, containing training and evaluation processes
   - Other model files (CNN, Transformer, etc.)
 - `dataset/` - Dataset loading and processing
+  - `create_embedding_dict_v2.py` - Vector generation for nodes
+  - `graph_embedding_merge.py` - Node attribute construction based on neighbor relationships
 - `mypraser/` - Code parsing tools
 - `defects4j/` - Defects4J project configuration and tools
 - `data/` - Data file directory
   - `graph/` - Graph data files
     - `Lang/` - Lang project data
-    - Other project data (Chart, Math, etc.)
+    - `Time/` - Time project data
+    - `Mockito/` - Mockito project data
+    - `Chart/` - Chart project data
+    - `Math/` - Math project data
 
 ## Environment Requirements
 
@@ -53,13 +58,27 @@ python model/dual_train_run.py
 
 ### Data Description
 
+- Complete data for Lang, Time, Mockito, Chart, and Math projects have been uploaded.
+
 - Training and evaluation use PKL files in the following format:
   ```
   data/graph/[Project]/[Version]/[Project]_[Version]_graph_embedding_merge.pkl
   ```
   For example: `data/graph/Lang/1/Lang_1_graph_embedding_merge.pkl`
 
-- Due to file size limitations, this project only includes partial versions of the Lang project for script execution and testing
+- Each PKL file contains four types of nodes:
+  - Methods
+  - Statements
+  - Passed test cases
+  - Failed test cases
+
+- Each node contains both its own attributes and the attributes of neighboring nodes. All attributes have been processed using GraphCodeBERT and Node2Vec to form vectors that can be directly used for training.
+
+- The Closure project data is not included due to its large file size. If needed, you can generate it using the models' data structure from the Defects4J dataset.
+
+- To generate your own data, you can use:
+  - `dataset/create_embedding_dict_v2.py` for vector generation
+  - `dataset/graph_embedding_merge.py` for constructing node attributes based on neighbor relationships
 
 ### Output Files
 
